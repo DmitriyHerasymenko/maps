@@ -1,20 +1,21 @@
 import React from "react";
 import { withGoogleMap, withScriptjs, GoogleMap, Marker, Polyline } from "react-google-maps";
+import {getRequest} from "../Request";
 
-class Map extends React.Component {
+class Map extends  React.Component {
 
     state = {
+        path: [],
         progress: [],
     };
 
 
-
     path = [
         { lat: 48.750488, lng: 30.219790 },
-        { lat: 48.751138, lng: 30.219584 },
-        { lat: 48.751601, lng: 30.219331 },
-        { lat: 48.752506, lng: 30.218902 },
-        { lat: 48.753824, lng: 30.218315 },
+        { lat: 48.750715, lng: 30.219781 },
+        { lat: 48.750986, lng: 30.219579 },
+        { lat: 48.751340, lng: 30.219479 },
+
     ];
 
     velocity = 5;
@@ -25,8 +26,11 @@ class Map extends React.Component {
         return differentInTime * this.velocity
     };
 
-    componentDidMount = () => {
-        this.interval = window.setInterval(this.moveObject, 1000)
+    componentDidMount = async () => {
+        this.interval = window.setInterval(this.moveObject, 1000);
+        const data = await getRequest();
+        this.setState({path: data});
+        console.log("state", this.state)
     };
 
     componentWillUnmount = () => {
@@ -34,31 +38,31 @@ class Map extends React.Component {
     };
 
     moveObject = () => {
-        const distance = this.getDistance()
+        const distance = this.getDistance();
         if (! distance) {
             return
         }
 
-        let progress = this.path.filter(coordinates => coordinates.distance < distance)
+        let progress = this.path.filter(coordinates => coordinates.distance < distance);
 
-        const nextLine = this.path.find(coordinates => coordinates.distance > distance)
+        const nextLine = this.path.find(coordinates => coordinates.distance > distance);
         if (! nextLine) {
-            this.setState({ progress })
-            return // it's the end!
+            this.setState({ progress });
+            return
         }
-        const lastLine = progress[progress.length - 1]
+        const lastLine = progress[progress.length - 1];
 
         const lastLineLatLng = new window.google.maps.LatLng(
             lastLine.lat,
             lastLine.lng
-        )
+        );
 
         const nextLineLatLng = new window.google.maps.LatLng(
             nextLine.lat,
             nextLine.lng
-        )
+        );
 
-        // distance of this line
+
         const totalDistance = nextLine.distance - lastLine.distance
         const percentage = (distance - lastLine.distance) / totalDistance
 
@@ -66,11 +70,11 @@ class Map extends React.Component {
             lastLineLatLng,
             nextLineLatLng,
             percentage
-        )
+        );
 
         progress = progress.concat(position)
         this.setState({ progress })
-    }
+    };
 
     componentWillMount = () => {
         this.path = this.path.map((coordinates, i, array) => {
@@ -87,13 +91,13 @@ class Map extends React.Component {
             const distance = window.google.maps.geometry.spherical.computeDistanceBetween(
                 latLong1,
                 latLong2
-            )
+            );
 
             return { ...coordinates, distance }
-        })
+        });
 
         console.log(this.path)
-    }
+    };
 
     render = () => {
         return (

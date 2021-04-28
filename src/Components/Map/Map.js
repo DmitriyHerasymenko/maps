@@ -1,7 +1,11 @@
 import React from "react";
-import { withGoogleMap, withScriptjs, GoogleMap, Marker } from "react-google-maps";
+import { withGoogleMap, withScriptjs, GoogleMap, Marker, Polyline } from "react-google-maps";
 
 class Map extends React.Component {
+    path = [
+        { lat: 48.750488, lng: 30.219790 },
+        { lat: 48.751138, lng: 30.219584 }
+    ];
     render = () => {
         return (
             <GoogleMap
@@ -14,6 +18,7 @@ class Map extends React.Component {
                 }}
 
                 />
+                <Polyline path={this.path} options={{ strokeColor: "#FF0000 " }} />
             </GoogleMap>
         )
     }

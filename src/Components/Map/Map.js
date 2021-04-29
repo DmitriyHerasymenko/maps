@@ -6,7 +6,7 @@ const Map = () => {
 
     const [ path, setPath ] = React.useState([]);
     const [ progress, setProgress ] = React.useState([]);
-    const [ velocity, setVelocity ] = React.useState(5);
+    const [ velocity, setVelocity ] = React.useState(15);
     const [ initialDate, setInitialDate ] = React.useState(new Date());
 
     React.useEffect(() => {

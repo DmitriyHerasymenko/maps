@@ -24,7 +24,7 @@ const Map = () => {
             const distance = window.google.maps.geometry.spherical.computeDistanceBetween(latLong1, latLong2);
 
             return { ...coordinates, distance };
-        }
+        };
 
         const moveObject = () => {
 
@@ -89,7 +89,7 @@ const GMC = () => (
     <MapComponent
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
         loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px`, width: '500px' }} />}
+        containerElement={<div style={{ height: `500px`, width: '100%' }} />}
         mapElement={<div style={{ height: `100%` }} />}
     />
 )

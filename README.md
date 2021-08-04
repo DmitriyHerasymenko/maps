@@ -1,15 +1,6 @@
 
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-In the project directory, you can run server:
-
-### `node server.js`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
+1. Item 1
+1. Item 2
+1. Item 3
+   1. Item 3a
+   1. Item 3b
